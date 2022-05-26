@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Products</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+	integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+	crossorigin="anonymous">
+ <link rel="stylesheet" href="../css/style.css">
+<script type="text/javascript">
+	function preventBack() {
+		window.history.forward();
+	}
+
+	setTimeout("preventBack()", 0);
+
+	window.onunload = function() {
+		null
+	};
+</script>
+</head>
+<body>
+	<div class="container my-2">
+		<div class="card">
+			<div class="card-body">
+				<div th:switch="${products}" class="container my-5">
+					<form action="#" th:action="@{/products/}" method="get">
+						<div class="row">
+							<div class="form-group col-md-8">
+								<b><label for="color" class="col-form-label color">Color</label> <input
+									type="text" required class="form-control" id="color" th:value="*{color}"
+									placeholder="Color" th:name="color">
+								 <span th:text="*{colorError}" class="text-danger">
+</span>
+							</div>
+							
+
+
+
+							<div class="form-group size col-md-8">
+							<b><label class="col-form-label">Size</label></b>
+								<div class="custom-control custom-radio custom-control-inline">
+									<input type="radio" id="option1" name="option1" class="custom-control-input" value="S" th:name="size">
+                <label class="custom-control-label" for="option1">S</label>
+								</div>
+								<div class="custom-control custom-radio custom-control-inline">
+									<input type="radio" id="option2" name="option2" class="custom-control-input" value="M" th:name="size">
+                <label class="custom-control-label" for="option2">M</label>
+								</div>
+								<div class="custom-control custom-radio custom-control-inline">
+									<input type="radio" id="option3" name="option3" class="custom-control-input" value="L" th:name="size">
+                <label class="custom-control-label" for="option3">L</label>
+								</div>
+								<div class="custom-control custom-radio custom-control-inline">
+									<input type="radio" id="option4" name="option4" class="custom-control-input" value="XL" th:name="size">
+                <label class="custom-control-label" for="option4">XL</label>
+								</div>
+								<span th:text="*{sizeError}" class="text-danger">
+</span>
+							</div>
+
+
+<div class="form-group gender col-md-8">
+							<b><label class="col-form-label">Gender</label></b>
+								<div class="custom-control custom-radio custom-control-inline">
+									<input type="radio" id="option5" name="option5" class="custom-control-input" value="M" th:name="gender">
+                <label class="custom-control-label" for="option5">Male</label>
+								</div>
+								<div class="custom-control custom-radio custom-control-inline">
+									<input type="radio" id="option6" name="option6" class="custom-control-input" value="F" th:name="gender">
+                <label class="custom-control-label" for="option6">Female</label>
+								</div>
+								<div class="custom-control custom-radio custom-control-inline">
+									<input type="radio" id="option7" name="option7" class="custom-control-input" value="U" th:name="gender">
+                <label class="custom-control-label" for="option7">Unisex</label>
+								</div>
+								<span th:text="*{genderError}" class="gender-danger">
+</span>
+							</div>
+							
+<div class="form-group preference col-md-8">
+							<b><label class="col-form-label">Preference</label></b>								<div class="custom-control custom-radio custom-control-inline">
+									<input type="radio" id="option8" name="option8" class="custom-control-input" value="both" th:name="preference">
+                <label class="custom-control-label" for="option8"> Both</label>
+								</div>
+								<div class="custom-control custom-radio custom-control-inline">
+									<input type="radio" id="option9" name="option9" class="custom-control-input" value="price" th:name="preference">
+                <label class="custom-control-label" for="option9">Price</label>
+								</div>
+								<div class="custom-control custom-radio custom-control-inline">
+									<input type="radio" id="option10" name="option10" class="custom-control-input" value="rating" th:name="preference">
+                <label class="custom-control-label" for="option10">Rating</label>
+								</div>
+								<span th:text="*{preferenceError}" class="text-danger">
+</span>
+							</div>
+							<div class="col-md-6">
+								<input type="submit" class="btn btn-primary search-product"
+									value="Search Product">
+
+
+
+							</div>
+
+
+							<div class="form-group col-md-8"></div>
+
+
+
+						</div>
+					</form>
+					<div class="col-md-10">
+						<h2 th:case="null">Search for any product!</h2>
+						<div th:case="*">
+							<table class="table table-striped table-responsive-md">
+								<thead>
+									<tr>
+										<th>Name</th>
+										<th>Size</th>
+										<th>Gender</th>
+										<th>Color</th>
+										<th>Price</th>
+										<th>Rating</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="product : ${products}">
+										<td th:text="${product.name}"></td>
+										<td th:text="${product.size}"></td>
+										<td th:text="${product.gender}"></td>
+										<td th:text="${product.color}"></td>
+										<td th:text="${product.price}"></td>
+										<td th:text="${product.rating}"></td>
+									</tr>
+								</tbody>
+							</table>
+							<span th:text="*{noproduct}" class="text-danger no-product">
+						</div>
+						
+						<div class="col-md-6">
+							<a th:href="@{/logout}" onclick="noBack()"
+								class="btn btn-primary">Logout</a>
+						</div>
+
+
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
